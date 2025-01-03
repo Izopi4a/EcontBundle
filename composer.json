@@ -4,7 +4,7 @@
     "type": "symfony-bundle",
     "require": {
         "guzzlehttp/guzzle": "^7.9",
-        "php": "8.4"
+        "php": "^8.4"
     },
     "license": "MIT",
     "autoload": {
