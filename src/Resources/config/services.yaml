@@ -1,0 +1,5 @@
+services:
+  Izopi4a\EcontBundle\Service\EcontService:
+    public: true
+    arguments: ["%env(IZOPI4A_ECONT_USER)%","%env(IZOPI4A_ECONT_PASS)%","%env(IZOPI4A_ECONT_LOCALE)%"]
+      
