@@ -151,7 +151,7 @@ class EcontService
 
         $res = $this->request("Shipments/LabelService.createLabel.json", $params);
 
-        $cls = new Http\Response\Shipment($res['label']);
+        $cls = new Http\Response\Shipment($res);
 
         return $cls;
     }

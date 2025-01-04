@@ -1,7 +1,7 @@
 # EcontBundle
 
 api docs by econt here: https://www.econt.com/developers/soap-json-api.html
-This doesn't cover all the Econt API. I developed what I needed, if you need help or more APIs just open an issue I will them.
+This doesn't cover all the Econt API. I developed what I needed, if you need help or more APIs just open an issue I will add them.
 
 # Install
 ```shell
@@ -66,6 +66,7 @@ $receiver_contact->setTypeReciever();
 
 $shipment = $econtService->calculateDelivery($sender, $receiver, $package, $sender_contact, $receiver_contact);
 
+//you can check for errors with $shipment->getErrors() or $shipment->hasErrors()
 
 dd($shipment->getTotalPrice(), $shipment);
 ```
