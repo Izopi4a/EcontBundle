@@ -1,20 +1,19 @@
 {
-    "name": "izopi4a/econt-bundle",
-    "description": "econt curier bundle for symfony",
-    "type": "symfony-bundle",
-    "require": {
-        "guzzlehttp/guzzle": "^7.9",
-        "php": "^8.4"
-    },
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Izopi4a\\EcontBundle\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "izopi4a"
-        }
-    ]
+  "name": "izopi4a/econt-bundle",
+  "description": "econt curier bundle for symfony",
+  "type": "symfony-bundle",
+  "require": {
+    "php": "^8.4",
+  },
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Izopi4a\\EcontBundle\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "izopi4a"
+    }
+  ]
 }
