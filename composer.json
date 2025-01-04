@@ -3,7 +3,7 @@
   "description": "econt curier bundle for symfony",
   "type": "symfony-bundle",
   "require": {
-    "php": "^8.4"
+    "php": "^7.2"
   },
   "license": "MIT",
   "autoload": {

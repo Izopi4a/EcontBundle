@@ -1,6 +1,7 @@
 # EcontBundle
 
-api docs by econt here: https://www.econt.com/developers/31-sazdavane-na-dokument-za-izprashtane-tovaritelnitsa.html
+api docs by econt here: https://www.econt.com/developers/soap-json-api.html
+This doesn't cover all the Econt API. I developed what I needed, if you need help or more APIs just open an issue I will them.
 
 # Install
 ```shell
@@ -29,6 +30,44 @@ public function index(EcontService $econtService): Response
     
     dd($offices_in_sofia)
 }
+```
+
+### Calculating delivery
+
+```php
+$sender = new \Izopi4a\EcontBundle\Service\Http\Payload\Party();
+$sender->setTypeSender();
+$sender->setOffice(1000);
+
+
+$receiver = new \Izopi4a\EcontBundle\Service\Http\Payload\Party();
+$receiver->setTypeReciever();
+// to specify office use
+//$receiver->setOffice(1100);
+//to specify home address use
+$receiver->setAddress(41, "Незабравка", 31, "");
+
+$package = new \Izopi4a\EcontBundle\Service\Http\Payload\Package();
+$package->setWeight(1);
+$package->setDescription("обувки");
+$package->setCount(2);
+//to add cash on delivery uncomment
+//$package->addCashOnDelivery(200);
+
+$sender_contact = new \Izopi4a\EcontBundle\Service\Http\Payload\Contact();
+$sender_contact->setName("Иван Иванов");
+$sender_contact->addPhone("0888888888");
+$sender_contact->setTypeSender();
+
+$receiver_contact = new \Izopi4a\EcontBundle\Service\Http\Payload\Contact();
+$receiver_contact->setName("Иван Иванов");
+$receiver_contact->addPhone("0888888888");
+$receiver_contact->setTypeReciever();
+
+$shipment = $econtService->calculateDelivery($sender, $receiver, $package, $sender_contact, $receiver_contact);
+
+
+dd($shipment->getTotalPrice(), $shipment);
 ```
 
 ### Getting all the cities

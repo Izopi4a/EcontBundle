@@ -2,6 +2,7 @@
 
 namespace Izopi4a\EcontBundle\Service;
 
+use Izopi4a\EcontBundle\Service\Http\Payload\ShippingLabel;
 
 class EcontService
 {
@@ -35,7 +36,6 @@ class EcontService
                 'password' => $this->password,
             ];
         }
-
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $endpoint . '/' . rtrim($method,'/'));
@@ -119,5 +119,40 @@ class EcontService
         }
 
         return $result;
+    }
+
+    /**
+     * Handles the calculation and creation of a delivery shipment label based on the provided sender and receiver details, package details, and contacts.
+     *
+     * @param Http\Payload\Party $senderParty Details of the sender's party.
+     * @param Http\Payload\Party $recieverParty Details of the receiver's party.
+     * @param Http\Payload\Package $package Details of the package to be shipped.
+     * @param Http\Payload\Contact $senderContact Contact information of the sender.
+     * @param Http\Payload\Contact $recieverContact Contact information of the receiver.
+     *
+     * @return Http\Response\Shipment Returns a shipment object containing the generated shipment label.
+     *
+     * @throws Exception If there is an error in the request or response during label creation.
+     */
+    public function calculateDelivery(
+        Http\Payload\Party $senderParty,
+        Http\Payload\Party $recieverParty,
+        Http\Payload\Package $package,
+        Http\Payload\Contact $senderContact,
+        Http\Payload\Contact $recieverContact,
+    ) : Http\Response\Shipment
+    {
+        $params = [
+            "label" => [],
+            "mode" => "validate",
+        ];
+
+        $params["label"] = array_merge($params["label"], $senderParty->getData(),  $recieverParty->getData(),$senderContact->getData(), $recieverContact->getData(), $package->getData());
+
+        $res = $this->request("Shipments/LabelService.createLabel.json", $params);
+
+        $cls = new Http\Response\Shipment($res['label']);
+
+        return $cls;
     }
 }
