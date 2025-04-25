@@ -19,7 +19,9 @@ class Contact
         }
 
         if (count($phone) > 0) {
-            $this->addPhone($phone);
+            foreach ($phone as $item) {
+                $this->addPhone($item);
+            }
         }
     }
 

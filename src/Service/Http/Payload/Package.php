@@ -36,11 +36,17 @@ class Package
 
     public function getData() : array
     {
+
+        $dt = new \DateTime();
+        $dt->modify("next monday");
+
         $return = [
             "packCount" => $this->getCount(),
             "weight" => $this->getWeight(),
             "shipmentType" => $this->getType(),
             "shipmentDescription" => $this->getDescription(),
+            "sendDate" => $dt->format("D.m.Y"),
+            "holidayDeliveryDay" => "work_day"
 //            "services" => [
 //                "cdAmount" => 200
 //            ]

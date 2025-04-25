@@ -15,7 +15,6 @@ class Shipment
 
     public function __construct(array $data)
     {
-
         if (isset($data['innerErrors'])) {
             $this->errors = $data['innerErrors'];
             return;
@@ -40,7 +39,10 @@ class Shipment
 
     protected function setServiceTaxes(array $data)
     {
-        foreach ($data['services'] as $key => $value) {
+        if (!isset($data['label']['services'])) {
+            return;
+        }
+        foreach ($data['label']['services'] as $key => $value) {
 
             if ($value['type'] === 'CD') {
                 $this->cashOnDeliveryTax = $value['price'];

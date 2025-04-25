@@ -81,6 +81,12 @@ class Party
         return $address;
     }
 
+    public function setCityId(int $city_id) : self
+    {
+        $this->econt_city_id = $city_id;
+        return $this;
+    }
+
     public function setAddress(string $econt_city_id, string $street, string $street_number,string $other)
     {
         $this->econt_city_id = $econt_city_id;
