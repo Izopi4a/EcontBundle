@@ -88,6 +88,27 @@ class EcontService
     }
 
     /**
+     * returns Http\Response\Office for Office ID
+     *
+     * unfortunately I couldn't find a method for `get by ID` by Ekont,
+     * so we do a request by city and just compare by `id`
+     *
+     * @return Http\Response\Office
+     */
+    public function getOfficeById(int $officeId, int $econtCityId,string $countryCode = "BGR") : Http\Response\Office
+    {
+        $allTheCities = $this->getOfficesInCity($econtCityId, $countryCode);
+
+        foreach ($allTheCities as $city) {
+            if ($city->getId() === $officeId) {
+                return $city;
+            }
+        }
+
+        throw new \Exception("Couldn't find the office");
+    }
+
+    /**
      * Retrieves a list of offices in a specific city.
      * An exception is thrown if an invalid city ID is provided.
      *
