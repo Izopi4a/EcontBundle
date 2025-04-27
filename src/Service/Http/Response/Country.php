@@ -2,7 +2,8 @@
 
 namespace Izopi4a\EcontBundle\Service\Http\Response;
 
-class Country {
+class Country implements \JsonSerializable
+{
 
     protected ?int $id;
     protected string $code2;
@@ -42,5 +43,16 @@ class Country {
     public function getNameEn(): string
     {
         return $this->nameEn;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            "id" => $this->getId(),
+            "code_2" => $this->getCode2(),
+            "code_3" => $this->getCode3(),
+            "name" => $this->getName(),
+            "name_en" => $this->getNameEn()
+        ];
     }
 }

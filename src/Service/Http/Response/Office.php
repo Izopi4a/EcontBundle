@@ -2,13 +2,13 @@
 
 namespace Izopi4a\EcontBundle\Service\Http\Response;
 
-class Office {
+class Office implements \JsonSerializable {
 
     protected ?int $id;
     protected string $code;
     protected string $name;
     protected string $nameEn;
-    protected \Izopi4a\EcontBundle\Service\Http\Response\Adress $address;
+    protected \Izopi4a\EcontBundle\Service\Http\Response\Address $address;
     protected string $hubName;
     protected string $hubCode;
 
@@ -19,7 +19,7 @@ class Office {
         $this->name = $data['name'];
         $this->nameEn = $data['nameEn'];
 
-        $this->address = new Adress($data['address']);
+        $this->address = new Address($data['address']);
         $this->hubName = $data['hubName'];
         $this->hubCode = $data['hubCode'];
     }
@@ -44,7 +44,7 @@ class Office {
         return $this->nameEn;
     }
 
-    public function getAddress(): \Izopi4a\EcontBundle\Service\Http\Response\Adress
+    public function getAddress(): Address
     {
         return $this->address;
     }
@@ -59,4 +59,15 @@ class Office {
         return $this->hubCode;
     }
 
+    public function jsonSerialize(): array
+    {
+        return [
+          "id" => $this->getId(),
+          "name" => $this->getName(),
+          "name_en" => $this->getNameEn(),
+          "address" => $this->getAddress(),
+          "hub_name" => $this->getHubName(),
+          "hub_code" => $this->getHubCode(),
+        ];
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace Izopi4a\EcontBundle\Service\Http\Response;
 
-class City {
+class City implements \JsonSerializable {
 
     protected int $id;
     protected string $name;
@@ -42,5 +42,16 @@ class City {
     public function getPostCode(): string
     {
         return $this->postCode;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+          "id" => $this->getId(),
+          "name" => $this->getName(),
+          "name_en" => $this->getNameEn(),
+          "country" => $this->getCountry(),
+          "post_code" => $this->getPostCode()
+        ];
     }
 }
